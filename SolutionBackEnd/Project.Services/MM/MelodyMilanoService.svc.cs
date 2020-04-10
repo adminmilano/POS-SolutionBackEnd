@@ -52,7 +52,7 @@ namespace Project.Services.MM
         }
 
         /// <summary>
-        /// Servicio para finalizar la compra por tarjeta MM
+        /// OCG Servicio para registrar el cobro de la TCMM
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
