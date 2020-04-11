@@ -426,6 +426,10 @@ namespace Milano.BackEnd.Repository
             parameters.Add("@NumeroTarjeta", numeroTarjeta);
             parameters.Add("@ImporteMonedaExtranjera", importeMonedaExtranjera);
             parameters.Add("@ClasificacionVenta", clasificacionVenta);
+
+           //parameters.Add("@Plazo", PL);
+            //parameters.Add("@MontoPlazo", clasificacionVenta);
+
             List<System.Data.SqlClient.SqlParameter> parametersOut = new List<System.Data.SqlClient.SqlParameter>();
             parametersOut.Add(new System.Data.SqlClient.SqlParameter() { ParameterName = "@CodigoResultado", Direction = ParameterDirection.Output, SqlDbType = SqlDbType.Int });
             parametersOut.Add(new System.Data.SqlClient.SqlParameter() { ParameterName = "@MensajeResultado", Direction = ParameterDirection.Output, SqlDbType = SqlDbType.NVarChar, Size = 4000 });

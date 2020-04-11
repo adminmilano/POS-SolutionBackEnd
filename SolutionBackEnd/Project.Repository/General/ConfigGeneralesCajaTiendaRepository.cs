@@ -15,7 +15,6 @@ namespace Milano.BackEnd.Repository.General
     /// </summary>
     public class ConfigGeneralesCajaTiendaRepository : BaseRepository
     {
-
         private ConfigGeneralesCajaTiendaResponse GetConfiguraciones(int CodigoCaja, int CodigoTienda, int codigoEmpleado, int registrarTransaccionLogin)
         {
             ConfigGeneralesCajaTiendaResponse cnf = new ConfigGeneralesCajaTiendaResponse();
