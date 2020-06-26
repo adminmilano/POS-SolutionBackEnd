@@ -115,6 +115,8 @@ namespace Milano.BackEnd.Business.ProxyVentaEmpleado {
         
         private double dCreditoField;
         
+        private long iNumeroNominaField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -203,6 +205,19 @@ namespace Milano.BackEnd.Business.ProxyVentaEmpleado {
             }
         }
         
+        [System.Runtime.Serialization.DataMemberAttribute(IsRequired=true, Order=6)]
+        public long iNumeroNomina {
+            get {
+                return this.iNumeroNominaField;
+            }
+            set {
+                if ((this.iNumeroNominaField.Equals(value) != true)) {
+                    this.iNumeroNominaField = value;
+                    this.RaisePropertyChanged("iNumeroNomina");
+                }
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -224,6 +239,10 @@ namespace Milano.BackEnd.Business.ProxyVentaEmpleado {
         // CODEGEN: Se está generando un contrato de mensaje, ya que el nombre de elemento numeroNomina del espacio de nombres http://tempuri.org/ no está marcado para aceptar valores nil.
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ConsultarEmpleado", ReplyAction="*")]
         Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoResponse ConsultarEmpleado(Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoRequest request);
+        
+        // CODEGEN: Se está generando un contrato de mensaje, ya que el nombre de elemento numeroNomina del espacio de nombres http://tempuri.org/ no está marcado para aceptar valores nil.
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ConsultarEmpleadoTCMM", ReplyAction="*")]
+        Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMResponse ConsultarEmpleadoTCMM(Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMRequest request);
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -406,6 +425,86 @@ namespace Milano.BackEnd.Business.ProxyVentaEmpleado {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ConsultarEmpleadoTCMMRequest {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ConsultarEmpleadoTCMM", Namespace="http://tempuri.org/", Order=0)]
+        public Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMRequestBody Body;
+        
+        public ConsultarEmpleadoTCMMRequest() {
+        }
+        
+        public ConsultarEmpleadoTCMMRequest(Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMRequestBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ConsultarEmpleadoTCMMRequestBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=0)]
+        public int codigoEmpresa;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=1)]
+        public string numeroNomina;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=2)]
+        public int codigoTienda;
+        
+        [System.Runtime.Serialization.DataMemberAttribute(Order=3)]
+        public int codigoCaja;
+        
+        public ConsultarEmpleadoTCMMRequestBody() {
+        }
+        
+        public ConsultarEmpleadoTCMMRequestBody(int codigoEmpresa, string numeroNomina, int codigoTienda, int codigoCaja) {
+            this.codigoEmpresa = codigoEmpresa;
+            this.numeroNomina = numeroNomina;
+            this.codigoTienda = codigoTienda;
+            this.codigoCaja = codigoCaja;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
+    public partial class ConsultarEmpleadoTCMMResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Name="ConsultarEmpleadoTCMMResponse", Namespace="http://tempuri.org/", Order=0)]
+        public Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMResponseBody Body;
+        
+        public ConsultarEmpleadoTCMMResponse() {
+        }
+        
+        public ConsultarEmpleadoTCMMResponse(Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMResponseBody Body) {
+            this.Body = Body;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.Runtime.Serialization.DataContractAttribute(Namespace="http://tempuri.org/")]
+    public partial class ConsultarEmpleadoTCMMResponseBody {
+        
+        [System.Runtime.Serialization.DataMemberAttribute(EmitDefaultValue=false, Order=0)]
+        public Milano.BackEnd.Business.ProxyVentaEmpleado.InfoEmpleado ConsultarEmpleadoTCMMResult;
+        
+        public ConsultarEmpleadoTCMMResponseBody() {
+        }
+        
+        public ConsultarEmpleadoTCMMResponseBody(Milano.BackEnd.Business.ProxyVentaEmpleado.InfoEmpleado ConsultarEmpleadoTCMMResult) {
+            this.ConsultarEmpleadoTCMMResult = ConsultarEmpleadoTCMMResult;
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface wsVentaEmpleadoSoapChannel : Milano.BackEnd.Business.ProxyVentaEmpleado.wsVentaEmpleadoSoap, System.ServiceModel.IClientChannel {
     }
@@ -468,6 +567,22 @@ namespace Milano.BackEnd.Business.ProxyVentaEmpleado {
             inValue.Body.codigoCaja = codigoCaja;
             Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoResponse retVal = ((Milano.BackEnd.Business.ProxyVentaEmpleado.wsVentaEmpleadoSoap)(this)).ConsultarEmpleado(inValue);
             return retVal.Body.ConsultarEmpleadoResult;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMResponse Milano.BackEnd.Business.ProxyVentaEmpleado.wsVentaEmpleadoSoap.ConsultarEmpleadoTCMM(Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMRequest request) {
+            return base.Channel.ConsultarEmpleadoTCMM(request);
+        }
+        
+        public Milano.BackEnd.Business.ProxyVentaEmpleado.InfoEmpleado ConsultarEmpleadoTCMM(int codigoEmpresa, string numeroNomina, int codigoTienda, int codigoCaja) {
+            Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMRequest inValue = new Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMRequest();
+            inValue.Body = new Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMRequestBody();
+            inValue.Body.codigoEmpresa = codigoEmpresa;
+            inValue.Body.numeroNomina = numeroNomina;
+            inValue.Body.codigoTienda = codigoTienda;
+            inValue.Body.codigoCaja = codigoCaja;
+            Milano.BackEnd.Business.ProxyVentaEmpleado.ConsultarEmpleadoTCMMResponse retVal = ((Milano.BackEnd.Business.ProxyVentaEmpleado.wsVentaEmpleadoSoap)(this)).ConsultarEmpleadoTCMM(inValue);
+            return retVal.Body.ConsultarEmpleadoTCMMResult;
         }
     }
 }

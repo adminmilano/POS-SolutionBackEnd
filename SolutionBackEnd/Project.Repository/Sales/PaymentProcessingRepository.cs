@@ -1,6 +1,7 @@
 ﻿using Milano.BackEnd.Dto;
 using Milano.BackEnd.Dto.FormasPago;
 using Milano.BackEnd.Dto.MM;
+using Milano.BackEnd.Dto.MilanoEntities;
 using Milano.BackEnd.Dto.Recovery;
 using Milano.BackEnd.Dto.Sales;
 using System;
@@ -242,11 +243,13 @@ namespace Milano.BackEnd.Repository
         /// <returns>Resultado de la operacion</returns>
         public OperationResponse ProcesarMovimientoTarjetaBancariaVenta(int codigoTienda, int codigoCaja, int codigoEmpleado, string autorizacion, string numeroTarjeta, ProcesarMovimientoTarjetaBancariaRequest request)
         {
+            //OCG: Modificación para integración de plazos y pago
             OperationResponse operationResponse = new OperationResponse();
             // Se persiste información de negocio a base de datos
             operationResponse = this.PersistirMovimientoTarjetaBancaria(codigoTienda, codigoCaja, codigoEmpleado,
               request.Venta.FolioOperacionAsociada, request.Venta.CodigoFormaPagoImporte, request.Venta.Estatus, request.Venta.SecuenciaFormaPagoImporte,
-              request.Venta.ImporteVentaTotal, "", 0, 0, request.Venta.ClasificacionVenta, autorizacion, numeroTarjeta);
+              request.Venta.ImporteVentaTotal, "", 0, 0, request.Venta.ClasificacionVenta, autorizacion, numeroTarjeta,
+              "N", "N");
             return operationResponse;
         }
         /// <summary>
@@ -331,10 +334,13 @@ namespace Milano.BackEnd.Repository
         /// <returns>Resultado de la operacion</returns>
         public OperationResponse ProcesarMovimientoTarjetaBancariaRetiro(int codigoTienda, int codigoCaja, int codigoEmpleado, string autorizacion, string numeroTarjeta, ProcesarMovimientoTarjetaBancariaRequest request)
         {
+            // OCG: Los valores de "-1" son por que no se deben de usar en PersistirMovimientoTarjetaBancaria 
+            // por que no es movimiento de tarjeta de crédito TCMM
             OperationResponse operationResponse = new OperationResponse();
             operationResponse = this.PersistirMovimientoTarjetaBancaria(codigoTienda, codigoCaja, codigoEmpleado,
               request.Retiro.FolioOperacionAsociada, request.Retiro.CodigoFormaPagoImporte, request.Retiro.Estatus, request.Retiro.SecuenciaFormaPagoImporte,
-              request.Retiro.ImporteCashBack * -1, "", 0, 0, request.Retiro.ClasificacionVenta, autorizacion, numeroTarjeta);
+              request.Retiro.ImporteCashBack * -1, "", 0, 0, request.Retiro.ClasificacionVenta, autorizacion, numeroTarjeta,
+              "N", "N");
             return operationResponse;
         }
 
@@ -350,10 +356,12 @@ namespace Milano.BackEnd.Repository
         /// <returns>Resultado de la operacion</returns>
         public OperationResponse ProcesarMovimientoTarjetaBancariaPuntos(int codigoTienda, int codigoCaja, int codigoEmpleado, string autorizacion, string numeroTarjeta, ProcesarMovimientoTarjetaBancariaRequest request)
         {
+            // Las "N" indican que esos parámetros no se deben de tomar en cuenta
             OperationResponse operationResponse = new OperationResponse();
             operationResponse = this.PersistirMovimientoTarjetaBancaria(codigoTienda, codigoCaja, codigoEmpleado,
               request.Puntos.FolioOperacionAsociada, request.Puntos.CodigoFormaPagoImporte, request.Puntos.Estatus, request.Puntos.SecuenciaFormaPagoImporte,
-              request.Puntos.ImporteVentaTotal, "", 0, 0, request.Puntos.ClasificacionVenta, autorizacion, numeroTarjeta);
+              request.Puntos.ImporteVentaTotal, "", 0, 0, request.Puntos.ClasificacionVenta, autorizacion, numeroTarjeta,
+              "N", "N");
             return operationResponse;
         }
 
@@ -398,17 +406,20 @@ namespace Milano.BackEnd.Repository
         /// <returns>Resultado de la operacion</returns>
         public OperationResponse ProcesarMovimientoTarjetaMelodyMilano(int codigoTienda, int codigoCaja, int codigoEmpleado, string autorizacion, string numeroTarjeta, FinalizarCompraRequest request)
         {
+            // OCG: Aqui si aplica que se pasen los valores de plazo y monto a pagar
             OperationResponse operationResponse = new OperationResponse();
             operationResponse = this.PersistirMovimientoTarjetaBancaria(codigoTienda, codigoCaja, codigoEmpleado,
               request.FolioOperacionAsociada, request.CodigoFormaPagoImporte, request.Estatus, request.SecuenciaFormaPagoImporte,
-              request.ImporteVentaTotal, "", 0, 0, request.ClasificacionVenta, autorizacion, numeroTarjeta);
+              request.ImporteVentaTotal, "", 0, 0, request.ClasificacionVenta, autorizacion, numeroTarjeta,
+              request.MesesFinanciados.ToString(), request.ImporteVentaTotal.ToString());
             return operationResponse;
         }
 
         //Referencia principal al procedimiento almacenado
         private OperationResponse PersistirMovimientoTarjetaBancaria(int codeStore, int codeBox, int codigoEmpleado, String folioVenta,
         string codigoFormaPago, string estatus, int secuencia, decimal importeMonedaNacional, string codigoTipoDivisa, decimal importeMonedaExtranjera,
-        decimal tasaConversionUtilizada, string clasificacionVenta, string autorizacion, string numeroTarjeta)
+        decimal tasaConversionUtilizada, string clasificacionVenta, string autorizacion, string numeroTarjeta,
+        string plazo, string montoPlazo)
         {
             OperationResponse operationResponse = new OperationResponse();
             var parameters = new Dictionary<string, object>();
@@ -427,8 +438,9 @@ namespace Milano.BackEnd.Repository
             parameters.Add("@ImporteMonedaExtranjera", importeMonedaExtranjera);
             parameters.Add("@ClasificacionVenta", clasificacionVenta);
 
-           //parameters.Add("@Plazo", PL);
-            //parameters.Add("@MontoPlazo", clasificacionVenta);
+            // OCG: Integración de plazo y monto del plazo
+            //parameters.Add("@Plazo", plazo);
+            //parameters.Add("@MontoPlazo", montoPlazo);
 
             List<System.Data.SqlClient.SqlParameter> parametersOut = new List<System.Data.SqlClient.SqlParameter>();
             parametersOut.Add(new System.Data.SqlClient.SqlParameter() { ParameterName = "@CodigoResultado", Direction = ParameterDirection.Output, SqlDbType = SqlDbType.Int });
@@ -439,6 +451,23 @@ namespace Milano.BackEnd.Repository
             operationResponse.CodeDescription = result["@MensajeResultado"].ToString();
             operationResponse.Transaccion = Convert.ToInt32(result["@Consecutivo"]);
             return operationResponse;
+        }
+
+        public string spMilano_ActualizaPlazoFinanciamiento(UpdatePlanFinanciamientoTCMM param  )
+        {
+            var parameters = new Dictionary<string, object>();
+            parameters.Add("@folioOperacion", param.folioOperacion);
+            parameters.Add("@codigoTienda", param.codigoTienda);
+            parameters.Add("@codigoCaja", param.codigoCaja);
+            parameters.Add("@fechaactualizacion", param.fechaActualizacion);
+            parameters.Add("@codigoFormaPago", param.codigoFormaPago);
+            parameters.Add("@financiamientoId", param.financiamientoId);
+            parameters.Add("@montoMensualidad", param.montoMensualidad);
+   
+           data.ExecuteProcedure("spMilano_ActualizaPlazoFinanciamiento", parameters);
+
+            return "";
+           
         }
 
         private OperationResponse PersistirMovimientoTarjetRegalo(int codeStore, int codeBox, int codigoEmpleado, String folioVenta,

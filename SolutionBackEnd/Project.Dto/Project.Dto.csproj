@@ -165,6 +165,7 @@
     <Compile Include="InicioFinDia\AutenticacionOfflineRequest.cs" />
     <Compile Include="InicioFinDia\CapturaLuzRequest.cs" />
     <Compile Include="InicioFinDia\InicioDiaResponse.cs" />
+    <Compile Include="MilanoEntities\UpdatePlanFinanciamientoTCMM.cs" />
     <Compile Include="MM\FinalizarCompraRequest.cs" />
     <Compile Include="MM\FinalizarCompraResponse.cs" />
     <Compile Include="MM\FinalizarPagoTCMMRequest.cs" />

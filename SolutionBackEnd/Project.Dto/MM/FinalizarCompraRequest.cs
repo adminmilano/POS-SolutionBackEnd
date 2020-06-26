@@ -18,6 +18,12 @@ namespace Milano.BackEnd.Dto.MM
         /// </summary>
         [DataMember(Name = "numeroTarjeta")]
         public string NumeroTarjeta { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        [DataMember(Name = "mesesFinanciados")]
+        public int MesesFinanciados { get; set; }
         /// <summary>
         /// Folio de operación asociada al pago
         /// </summary>

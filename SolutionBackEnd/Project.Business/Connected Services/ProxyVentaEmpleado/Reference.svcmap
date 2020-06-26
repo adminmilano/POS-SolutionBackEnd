@@ -18,11 +18,11 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://pruebas-mm:8089/WSPOS/WSvENTAeMPLEADO.ASMX" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://pruebas-mm:8888/WSvENTAeMPLEADO.ASMX" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="WSvENTAeMPLEADO.wsdl" MetadataType="Wsdl" ID="46b57649-f601-4267-b0e5-e61ff6837240" SourceId="1" SourceUrl="http://pruebas-mm:8089/WSPOS/WSvENTAeMPLEADO.ASMX?wsdl" />
-    <MetadataFile FileName="WSvENTAeMPLEADO.disco" MetadataType="Disco" ID="bf0b511d-c812-447d-a260-e901176a1839" SourceId="1" SourceUrl="http://pruebas-mm:8089/WSPOS/WSvENTAeMPLEADO.ASMX?disco" />
+    <MetadataFile FileName="WSvENTAeMPLEADO1.wsdl" MetadataType="Wsdl" ID="80d167a8-0ad7-4bf3-aeb1-d048541b1d66" SourceId="1" SourceUrl="http://pruebas-mm:8888/WSvENTAeMPLEADO.ASMX?wsdl" />
+    <MetadataFile FileName="WSvENTAeMPLEADO1.disco" MetadataType="Disco" ID="4b927f0d-0268-4265-bf4e-1fd4140e2a0b" SourceId="1" SourceUrl="http://pruebas-mm:8888/WSvENTAeMPLEADO.ASMX?disco" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

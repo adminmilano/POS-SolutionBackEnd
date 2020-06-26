@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="NukcVOCcdMVvPPUakamo9cPwkqE=">
+<SavedWcfConfigurationInformation xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" Version="9.1" CheckSum="Wt2XNfVijzt+N+Gyo8HFoRFJr14Jz+qeNKxpFjxEJbA=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="basicHttpBinding" name="wsVentaEmpleadoSoap">
       <properties>
@@ -112,10 +112,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="wsVentaEmpleadoSoap" contract="ProxyVentaEmpleado.wsVentaEmpleadoSoap" bindingType="basicHttpBinding" address="http://pruebas-mm:8089/WSPOS/WSvENTAeMPLEADO.ASMX" bindingConfiguration="wsVentaEmpleadoSoap">
+    <endpoint name="wsVentaEmpleadoSoap" contract="ProxyVentaEmpleado.wsVentaEmpleadoSoap" bindingType="basicHttpBinding" address="http://pruebas-mm:8888/WSvENTAeMPLEADO.ASMX" bindingConfiguration="wsVentaEmpleadoSoap">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>http://pruebas-mm:8089/WSPOS/WSvENTAeMPLEADO.ASMX</serializedValue>
+          <serializedValue>http://pruebas-mm:8888/WSvENTAeMPLEADO.ASMX</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

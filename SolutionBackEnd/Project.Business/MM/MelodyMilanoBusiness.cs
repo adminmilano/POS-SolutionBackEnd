@@ -17,6 +17,8 @@ using Project.Services.Utils;
 using Milano.BackEnd.Dto.General;
 using Milano.BackEnd.Repository.MM;
 using Milano.BackEnd.Business.ImpresionMM;
+using Milano.BackEnd.Business.MM;
+using Milano.BackEnd.Dto.MilanoEntities;
 
 namespace Milano.BackEnd.Business.MM
 {
@@ -71,6 +73,7 @@ namespace Milano.BackEnd.Business.MM
                 webrequest.Headers.Add("Authorization", credenciales.Licence);
                 webrequest.Method = "POST";
                 webrequest.ContentType = "application/json";
+
                 using (var streamWriter = new StreamWriter(webrequest.GetRequestStream()))
                 {
                     string json = "{\"User\":\"" + credenciales.UserName + "\"," +
@@ -86,9 +89,11 @@ namespace Milano.BackEnd.Business.MM
                 {
                     var result = streamReader.ReadToEnd();
                     dynamic resultadoTemporal = JsonConvert.DeserializeObject(result);
+                    
                     informacion.CodigoRespuestaTCMM = new CodigoRespuestaTCMM();
                     informacion.CodigoRespuestaTCMM.CodigoRespuesta = resultadoTemporal.ErrorCode;
                     informacion.CodigoRespuestaTCMM.MensajeRetorno = resultadoTemporal.Message;
+                   
                     if (informacion.CodigoRespuestaTCMM.CodigoRespuesta == "0")
                     {
                         informacion.SaldoEnLinea = resultadoTemporal.Response.Balance;
@@ -258,6 +263,14 @@ namespace Milano.BackEnd.Business.MM
         /// <returns></returns>
         public ResponseBussiness<FinalizarCompraResponse> FinalizarCompraTCMM(FinalizarCompraRequest request)
         {
+            //request.PlanFinanciamiento: ID del plan de financiamiento
+            //request.ImporteVentaTotal: Monto autorizado con la TCMM
+            string mesesFinanciados;
+            string montoMensualidad;
+
+            //OCG: Recuparar número de meses para el financiamiento
+            mesesFinanciados = request.MesesFinanciados.ToString();
+
             return tryCatch.SafeExecutor(() =>
             {
                 FinalizarCompraResponse response = new FinalizarCompraResponse();
@@ -286,6 +299,8 @@ namespace Milano.BackEnd.Business.MM
                         repository.PersistirPromocionesLineaVenta(request.FolioOperacionAsociada, token.CodeStore, token.CodeBox, item.Secuencia, item.ImporteDescuento
                                                                 , item.CodigoPromocionAplicado, item.DescripcionCodigoPromocionAplicado, item.PorcentajeDescuento, item.CodigoRazonDescuento, item.FormaPagoCodigoPromocionAplicado);
                     }
+                    
+                    //OCG:
                     // Se procesa la persistencia localmente
                     var movimientoVenta = repository.ProcesarMovimientoTarjetaMelodyMilano(token.CodeStore, token.CodeBox, token.CodeEmployee, "", request.NumeroTarjeta, request);
 
@@ -317,6 +332,21 @@ namespace Milano.BackEnd.Business.MM
                         response.CodigoRespuestaTCMM = new CodigoRespuestaTCMM();
                         response.CodigoRespuestaTCMM.CodigoRespuesta = Convert.ToString(responseJObject.SelectToken("ErrorCode"));
                         response.CodigoRespuestaTCMM.MensajeRetorno = Convert.ToString(responseJObject.SelectToken("Message"));
+
+                        //OCG: Recuperar los valores del financiamiento para poder actualizar la tabla
+                        UpdatePlanFinanciamientoTCMM planesFinanciamiento  = new UpdatePlanFinanciamientoTCMM();
+
+                        planesFinanciamiento.folioOperacion = request.FolioOperacionAsociada;
+                        planesFinanciamiento.montoMensualidad = Convert.ToString(responseJObject.SelectToken("Response.MonthlyPayment"));
+                        planesFinanciamiento.financiamientoId = request.MesesFinanciados.ToString();
+                        planesFinanciamiento.codigoFormaPago = request.CodigoFormaPagoImporte;
+                        planesFinanciamiento.codigoTienda = token.CodeStore;
+                        planesFinanciamiento.fechaActualizacion = DateTime.Now;
+                        planesFinanciamiento.codigoCaja = token.CodeBox;
+
+                        repository.spMilano_ActualizaPlazoFinanciamiento(planesFinanciamiento);
+                        //--
+
 
                         if (response.CodigoRespuestaTCMM.CodigoRespuesta == "0")
                         {

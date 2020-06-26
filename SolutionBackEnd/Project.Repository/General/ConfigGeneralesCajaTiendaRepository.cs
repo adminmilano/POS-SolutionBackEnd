@@ -239,6 +239,7 @@ namespace Milano.BackEnd.Repository.General
                 mainConfigButtom.ConfiguracionSubBotones = GetSuMenu(Convert.ToInt32(result.GetValue(0)), CodigoCaja, CodigoTienda);
                 confBotonesLst.Add(mainConfigButtom);
             }
+            
             configuracionBotonera.ConfiguracionBotones = confBotonesLst.ToArray();
             return configuracionBotonera;
         }

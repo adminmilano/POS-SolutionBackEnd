@@ -83,16 +83,16 @@ namespace Milano.BackEnd.Business
             EmpleadoMilanoResponse empleado = new EmpleadoMilanoResponse();
             Inspector inspector = new Inspector();
             int compania = repositorio.ObtenerCompania();
-            ProxyVentaEmpleado.InfoEmpleado info = proxy.ConsultarEmpleado(compania, codigoEmpleado, int.Parse(codigoTienda), int.Parse(codigoCaja));
+            ProxyVentaEmpleado.InfoEmpleado info = proxy.ConsultarEmpleadoTCMM(compania, codigoEmpleado, int.Parse(codigoTienda), int.Parse(codigoCaja));
             if (info.sError == "")
             {
-                empleado.Codigo = int.Parse(codigoEmpleado);
+                empleado.Codigo = info.iNumeroNomina;//int.Parse(codigoEmpleado);
                 empleado.Nombre = info.sNombre;
                 empleado.ApellidoPaterno = info.sPaterno;
                 empleado.ApellidoMaterno = info.sMaterno;
                 empleado.MontoCredito = inspector.TruncarValor(info.dCredito);
                 empleado.Mensaje = info.sMensaje;
-            }
+            } 
             else
             {
                 empleado.Mensaje = info.sError;

@@ -57,8 +57,26 @@
           <s:element minOccurs="0" maxOccurs="1" name="sMaterno" type="s:string" />
           <s:element minOccurs="0" maxOccurs="1" name="sNombre" type="s:string" />
           <s:element minOccurs="1" maxOccurs="1" name="dCredito" type="s:double" />
+          <s:element minOccurs="1" maxOccurs="1" name="iNumeroNomina" type="s:long" />
         </s:sequence>
       </s:complexType>
+      <s:element name="ConsultarEmpleadoTCMM">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="codigoEmpresa" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="numeroNomina" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoTienda" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="codigoCaja" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ConsultarEmpleadoTCMMResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ConsultarEmpleadoTCMMResult" type="tns:InfoEmpleado" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
     <s:schema elementFormDefault="qualified" targetNamespace="http://microsoft.com/wsdl/types/">
       <s:simpleType name="guid">
@@ -80,6 +98,12 @@
   <wsdl:message name="ConsultarEmpleadoSoapOut">
     <wsdl:part name="parameters" element="tns:ConsultarEmpleadoResponse" />
   </wsdl:message>
+  <wsdl:message name="ConsultarEmpleadoTCMMSoapIn">
+    <wsdl:part name="parameters" element="tns:ConsultarEmpleadoTCMM" />
+  </wsdl:message>
+  <wsdl:message name="ConsultarEmpleadoTCMMSoapOut">
+    <wsdl:part name="parameters" element="tns:ConsultarEmpleadoTCMMResponse" />
+  </wsdl:message>
   <wsdl:portType name="wsVentaEmpleadoSoap">
     <wsdl:operation name="RealizarVenta">
       <wsdl:input message="tns:RealizarVentaSoapIn" />
@@ -88,6 +112,10 @@
     <wsdl:operation name="ConsultarEmpleado">
       <wsdl:input message="tns:ConsultarEmpleadoSoapIn" />
       <wsdl:output message="tns:ConsultarEmpleadoSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarEmpleadoTCMM">
+      <wsdl:input message="tns:ConsultarEmpleadoTCMMSoapIn" />
+      <wsdl:output message="tns:ConsultarEmpleadoTCMMSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="wsVentaEmpleadoSoap" type="tns:wsVentaEmpleadoSoap">
@@ -103,6 +131,15 @@
     </wsdl:operation>
     <wsdl:operation name="ConsultarEmpleado">
       <soap:operation soapAction="http://tempuri.org/ConsultarEmpleado" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ConsultarEmpleadoTCMM">
+      <soap:operation soapAction="http://tempuri.org/ConsultarEmpleadoTCMM" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -131,13 +168,22 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ConsultarEmpleadoTCMM">
+      <soap12:operation soapAction="http://tempuri.org/ConsultarEmpleadoTCMM" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="wsVentaEmpleado">
     <wsdl:port name="wsVentaEmpleadoSoap" binding="tns:wsVentaEmpleadoSoap">
-      <soap:address location="http://pruebas-mm:8089/WSPOS/WSvENTAeMPLEADO.ASMX" />
+      <soap:address location="http://pruebas-mm:8888/WSvENTAeMPLEADO.ASMX" />
     </wsdl:port>
     <wsdl:port name="wsVentaEmpleadoSoap12" binding="tns:wsVentaEmpleadoSoap12">
-      <soap12:address location="http://pruebas-mm:8089/WSPOS/WSvENTAeMPLEADO.ASMX" />
+      <soap12:address location="http://pruebas-mm:8888/WSvENTAeMPLEADO.ASMX" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

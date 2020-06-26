@@ -288,7 +288,7 @@
     <None Include="Connected Services\ProxyVentaEmpleado\Milano.BackEnd.Business.ProxyVentaEmpleado.InfoVenta.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Connected Services\ProxyVentaEmpleado\WSvENTAeMPLEADO.wsdl" />
+    <None Include="Connected Services\ProxyVentaEmpleado\WSvENTAeMPLEADO1.wsdl" />
     <None Include="packages.config" />
     <None Include="Properties\DataSources\System.Data.DataTable.datasource" />
     <None Include="Properties\DataSources\System.Xml.XmlNode.datasource" />
@@ -403,6 +403,7 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+    <None Include="Connected Services\ProxyVentaEmpleado\WSvENTAeMPLEADO1.disco" />
     <Content Include="dll\SecurityCCK.dll" />
     <None Include="Connected Services\ProxyTipoCambio\service1.disco" />
     <None Include="Connected Services\ProxyTipoCambio\configuration91.svcinfo" />
@@ -411,7 +412,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-    <None Include="Connected Services\ProxyVentaEmpleado\WSvENTAeMPLEADO.disco" />
     <None Include="Connected Services\ProxyVentaEmpleado\configuration91.svcinfo" />
     <None Include="Connected Services\ProxyVentaEmpleado\configuration.svcinfo" />
     <None Include="Connected Services\ProxyVentaEmpleado\Reference.svcmap">

@@ -17,7 +17,7 @@ namespace Milano.BackEnd.Dto
 		/// Codigo de empleado
 		/// </summary>
 		[DataMember(Name = "codigo")]
-		public int Codigo { get; set; }
+		public Int64 Codigo { get; set; } //OCG: Se cambia el tipo para coincidir con el del WSPos
 
 		/// <summary>
 		/// Apellido paterno
