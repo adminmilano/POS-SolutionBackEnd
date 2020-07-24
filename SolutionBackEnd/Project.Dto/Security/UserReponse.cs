@@ -48,5 +48,14 @@ namespace Milano.BackEnd.Dto
 		/// </summary>
 		[DataMember(Name = "numeroCaja")]
 		public int NumeroCaja { get; set; }
-	}
+
+        /// <summary>
+		/// Estatus vencimiento de password usuario
+		/// </summary>
+        [DataMember(Name = "vencioPassword")]
+        public int vencioPassword { get; set; } = 0;
+        // 0: No ha vencido
+        // 1: Por vencer
+        // 2: Vencido
+    }
 }

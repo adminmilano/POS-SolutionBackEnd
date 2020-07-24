@@ -26,5 +26,5 @@ namespace Milano.BackEnd.Dto
 		/// </summary>
 		[DataMember(Name = "numberAttempts")]
 		public int NumberAttempts { get; set; }
-	}
+    }
 }
