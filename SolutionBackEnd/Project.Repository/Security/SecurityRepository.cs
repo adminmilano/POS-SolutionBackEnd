@@ -61,7 +61,7 @@ namespace Milano.BackEnd.Repository.Security
             parameters.Add("@Password", password);
             parameters.Add("@ContadorIntentos", numberAttempts);
             parameters.Add("@IpEstaticaCaja", ip);
-            foreach (var r in data.GetDataReader("sp_vanti_SegLogin_Prueba", parameters))
+            foreach (var r in data.GetDataReader("sp_vanti_SegLogin", parameters))
             {
                 user.CodeEstatus = Convert.ToInt32(r.GetValue(0));
                 user.Estatus = r.GetValue(1).ToString();
